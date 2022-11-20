@@ -12,14 +12,19 @@ moduleAlias.addAliases({
       "@dao": `${srcPath}/dao`
 });
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { createServer } from '@config/express';
+import { initMongo } from '@config/mongo';
+
 import { AddressInfo } from 'net';
 import http from 'http';
 
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3001;
-const startServer = () => {
-  const app = createServer();
+const startServer = async () => {
+  const app = await createServer();
   const server = http.createServer(app);
   server.listen({host, port}, () => {
     const address = server.address() as AddressInfo;
@@ -42,4 +47,7 @@ const startServer = () => {
   });
 };
 
-startServer();
+logger.info('Starting Server');
+initMongo(
+  startServer
+);
