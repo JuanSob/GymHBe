@@ -1,6 +1,6 @@
 import { IBooking } from '../entities/Booking';
 import { AbstractDao } from './AbstractDao';
-import { Db} from 'mongodb';
+import { Db,ObjectId} from 'mongodb';
 
 export class BookingDao extends AbstractDao<IBooking>{
     public constructor(db:Db){
@@ -10,7 +10,7 @@ export class BookingDao extends AbstractDao<IBooking>{
     public async insertNewBooking(booking:IBooking, userId:string){
         try{
             const {_id, ...newBooking} = booking;
-            newBooking.userId =  userId;
+            newBooking.userId =  new ObjectId(userId);
             return await this.createOne(newBooking);
         }
         catch(ex:unknown){
