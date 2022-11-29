@@ -1,5 +1,6 @@
 import {Request, Router} from 'express';
 import UsersRouter from './Users';
+import  BookingRouter from './Booking'
 import passportGithubRouter from './github';
 import apiKeyMW from '@server/middleware/apiKeyHeaderValidator';
 //import { jwtValidator } from '@server/middleware/jwtBeaereValidator';
@@ -11,6 +12,7 @@ const router = Router();
 //http://localhost:3001/cashflow/byindex/1
 router.use('/security', apiKeyMW, UsersRouter);
 router.use('/authGit', passportGithubRouter);
+router.use('/booking', BookingRouter);
 
 export default router;
 
