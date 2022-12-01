@@ -1,5 +1,6 @@
 import {Request, Router} from 'express';
 import UsersRouter from './Users';
+import  BookingRouter from './Booking'
 import passportGithubRouter from './github';
 import GymPlansRouter from './GymPlans';
 import GymPlanPayment from './GymPlanPayment';
@@ -19,7 +20,8 @@ router.use('/planPayment', apiKeyMW , jwtValidator, GymPlanPayment);
 router.use('/machine', apiKeyMW , jwtValidator, multer.single('image') , MachineExercisesRouter);
 router.use('/training', apiKeyMW , jwtValidator, multer.single('image') , GymTrainingsRouter);
 router.use('/security', apiKeyMW, UsersRouter);
-router.use('/authGit', passportGithubRouter);
+router.use('/authGit',apiKeyMW , jwtValidator, passportGithubRouter);
+router.use('/booking',apiKeyMW , jwtValidator, BookingRouter);
 
 export default router;
 
