@@ -23,20 +23,6 @@ router.get('/byMachineIndex/:index', async (req, res) => {
     }
   });
 
-/*router.post('/createMachine', (req, res) => {
-    try{
-        const {name, description, imagePath} = req.body;
-        const result = machineExercises.createMachineExercises(name, description, imagePath);
-        res.status(200).json({'msg':'La maquina de ejercicio se ha ingresado de manera correcta'});
-        console.log('MACHINEEXERCISES', result);
-    }catch(ex)
-    {
-        res.status(500).json({error:"Error al ingresar la maquina de ejercicio"});
-        console.log("MACHINEEXERCISES:", ex);
-    }
-});
-*/
-
 router.post('/createMachine', (req, res) => {
   try{
       const {name, description} = req.body;
