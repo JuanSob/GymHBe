@@ -4,7 +4,7 @@ import { GymTrainings, IGymTrainings} from "@server/libs/GymTrainings";
 
 const gymTrainings = new GymTrainings();
 
-router.get('/', async (_req, res)=>{
+/*router.get('/', async (_req, res)=>{
     try {
       res.json(await gymTrainings.getGymTrainings());
     } catch (ex) {
@@ -12,6 +12,16 @@ router.get('/', async (_req, res)=>{
       res.status(503).json({error:ex});
     }
   });
+*/
+router.get('/', async (req, res) => {
+  try {
+    const { page, items } = { page: "1", items: "10", ...req.query };
+    res.json(await gymTrainings.getGymTrainingByUserPaged(Number(page), Number(items)));
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({ error: ex });
+  }
+});
 
 router.get('/byTrainingIndex/:index', async (req, res) => {
     try {
@@ -22,7 +32,6 @@ router.get('/byTrainingIndex/:index', async (req, res) => {
       res.status(500).json({'msg': 'Error al obtener Registro'});
     }
   });
-
 
 router.post('/createTraining', (req, res) => {
     try{

@@ -4,7 +4,7 @@ import { MachineExercises, MachineExer} from "@server/libs/MachineExercises";
 
 const machineExercises = new MachineExercises();
 
-router.get('/', async (_req, res)=>{
+/*router.get('/', async (_req, res)=>{
     try {
       res.json(await machineExercises.getMachineExercises());
     } catch (ex) {
@@ -12,6 +12,16 @@ router.get('/', async (_req, res)=>{
       res.status(503).json({error:ex});
     }
   });
+*/
+router.get('/', async (req, res) => {
+  try {
+    const { page, items } = { page: "1", items: "10", ...req.query };
+    res.json(await machineExercises.getGymMachineByUserPaged(Number(page), Number(items)));
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({ error: ex });
+  }
+});
 
 router.get('/byMachineIndex/:index', async (req, res) => {
     try {
