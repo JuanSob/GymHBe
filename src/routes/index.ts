@@ -9,12 +9,14 @@ import GymTrainingsRouter from './GymTrainings';
 import apiKeyMW from '@server/middleware/apiKeyHeaderValidator';
 import { jwtValidator } from '@server/middleware/jwtBeaereValidator';
 import "@server/middleware/passportGithub";
+import RutinaEjercicio from './Rutina';
 import multer from '../libs/multer';
 
 const router = Router();
 
 //Esto ayuda a que se pueda llegar a visualizar de la manera
 //http://localhost:3001/cashflow/byindex/1
+router.use('/rutina', apiKeyMW , RutinaEjercicio);
 router.use('/plan', apiKeyMW , jwtValidator, GymPlansRouter);
 router.use('/planPayment', apiKeyMW , jwtValidator, GymPlanPayment);
 router.use('/machine', apiKeyMW , jwtValidator, multer.single('image') , MachineExercisesRouter);
