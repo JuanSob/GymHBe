@@ -16,8 +16,7 @@ const machineExercises = new MachineExercises();
 router.get('/', async (req, res) => {
   try {
     const { page, items } = { page: "1", items: "10", ...req.query };
-    const imagePath = req.file.path;
-    res.json(await machineExercises.getGymMachineByUserPaged(Number(page), Number(items, imagePath)));
+    res.json(await machineExercises.getGymMachineByUserPaged(Number(page), Number(items)));
   } catch (ex) {
     console.error(ex);
     res.status(503).json({ error: ex });
