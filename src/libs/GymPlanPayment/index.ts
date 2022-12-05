@@ -51,4 +51,10 @@ export class GymPlanPayment {
 	public getPaymentByUser(id: string, page:number, items:number ) {
 		return this.dao.getUserPayment(id, page, items);
 	}
+
+	public async getLastPaymentByUser(id: string) {
+		let items= [];
+		items.push(await this.dao.getUserLastPayment(id));
+		return {items:items};
+	}
 }

@@ -19,8 +19,8 @@ export class GymPlanPaymentDao extends AbstractDao<IGymPlanPayment>{
         }
     }
 
-    getUserLastPayment(id:string){
-        return super.findOneByFilter({userId: new ObjectId(id)}, {sort:{'date':-1}});
+    public async getUserLastPayment(id:string){
+        return await super.findOneByFilter({userId: new ObjectId(id)}, {sort:{'date':-1}});
     }
 
     public async getUserPayment(id:string, page:number = 1, itemsPerPage: number = 10){

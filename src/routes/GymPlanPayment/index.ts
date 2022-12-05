@@ -30,5 +30,17 @@ router.get('/', async (req: WithUserRequest, res) => {
 	}
 });
 
+router.get('/lastPayment', async (req: WithUserRequest, res)=>{
+	try{
+		console.log("Last Payment", req.user);
+		const result = await gymPlanPayment.getLastPaymentByUser(req.user?._id);
+		console.log(`El resultado${result}`);
+		res.json(result);
+	}
+	catch(ex){
+		console.error(ex);
+		res.status(503).json({error: ex});
+	}
+})
 
 export default router;
