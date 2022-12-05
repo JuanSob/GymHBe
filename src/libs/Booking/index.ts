@@ -20,4 +20,16 @@ export class Booking {
             place,
         },userId);
     }
+
+    public getBookingByUserPaged(userId:string, page:number, items:number ){
+        return this.dao.getBookingByUserPaged(userId, page, items);
+      }
+
+    public getBookingById(identifier: string) {
+        return this.dao.getBookingById(identifier);
+    }
+
+    public deleteBooking(index:string) {
+        return this.dao.deleteBooking({_id:index});
+    }
 }
