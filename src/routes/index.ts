@@ -17,7 +17,7 @@ const router = Router();
 //http://localhost:3001/cashflow/byindex/1
 router.use('/plan', apiKeyMW , jwtValidator, GymPlansRouter);
 router.use('/planPayment', apiKeyMW , jwtValidator, GymPlanPayment);
-router.use('/machine', apiKeyMW , jwtValidator, multer.single('image') , MachineExercisesRouter);
+router.use('/machine', apiKeyMW , jwtValidator, MachineExercisesRouter);
 router.use('/training', apiKeyMW , jwtValidator, multer.single('image') , GymTrainingsRouter);
 router.use('/security', apiKeyMW, UsersRouter);
 router.use('/authGit',apiKeyMW , jwtValidator, passportGithubRouter);
