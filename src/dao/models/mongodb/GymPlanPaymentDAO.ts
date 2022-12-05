@@ -19,7 +19,30 @@ export class GymPlanPaymentDao extends AbstractDao<IGymPlanPayment>{
         }
     }
 
-    getUserLastPayment(id:string){
-        return super.findOneByFilter({userId: new ObjectId(id)}, {sort:{'date':-1}});
+    public async getUserLastPayment(id:string){
+        return await super.findOneByFilter({userId: new ObjectId(id)}, {sort:{'date':-1}});
+    }
+
+    public async getUserPayment(id:string, page:number = 1, itemsPerPage: number = 10){
+        try{
+            const total = await super.getCollection().countDocuments({userId: new ObjectId(id)});
+            const totalPages = Math.ceil(total / itemsPerPage);
+            const items = await super.findByFilter(
+                    {userId: new ObjectId(id)},
+                    {sort:{'date':-1},
+                    skip:((page-1)*itemsPerPage),
+					limit:itemsPerPage});
+        return {
+            total,
+            totalPages,
+            page,
+            itemsPerPage,
+            items
+        };
+        }
+        catch(ex){
+            console.log("GymPlanPayment mongodb:", (ex as Error).message);
+            throw ex;
+        }
     }
 }

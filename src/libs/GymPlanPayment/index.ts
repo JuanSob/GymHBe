@@ -17,22 +17,24 @@ export class GymPlanPayment {
 			let { monthAmount, pricePerMonth, planDescription } = GymPlanPayment;
 			const user = await this.dao.getUserLastPayment(userId);
 			const today = new Date();
-			console.log(`End Subscription ${user.endSubscription}`);
-			if(user.endSubscription.getTime() > today.getTime())
-			{
-				throw new Error("Already have a active subscription");
+			if(user){
+				if(user.endSubscription.getTime() > today.getTime())
+				{
+					throw new Error("Already have a active subscription");
+				}
 			}
 			if (monthAmount < 2 || monthAmount > 12) {
 				throw new Error("Amount of month is invalid");
 			}
-			const sumMonthDate = new Date(today.setMonth(today.getMonth() + 8));
+			const sumMonthDate = new Date(today.setMonth(today.getMonth() + monthAmount));
+			console.log("La fecha: "+sumMonthDate);
 			const isv = (pricePerMonth * 0.15);
 			const total = Number((pricePerMonth * monthAmount) + (isv * monthAmount));
 			return this.dao.insertNewPayment(
 				{
 					date: new Date(),
 					monthAmount: Number(monthAmount),
-					endSubscription: sumMonthDate,
+					endSubscription: new Date(today.setMonth(today.getMonth() + monthAmount)),
 					pricePerMonth: Number(pricePerMonth),
 					planDescription,
 					isv,
@@ -46,7 +48,13 @@ export class GymPlanPayment {
 		}
 	}
 
-	public getPaymentByUser(id: string) {
-		return this.dao.getUserLastPayment(id);
+	public getPaymentByUser(id: string, page:number, items:number ) {
+		return this.dao.getUserPayment(id, page, items);
+	}
+
+	public async getLastPaymentByUser(id: string) {
+		let items= [];
+		items.push(await this.dao.getUserLastPayment(id));
+		return {items:items};
 	}
 }
