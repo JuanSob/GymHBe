@@ -25,6 +25,9 @@ export class Rutina {
         return this.dao.getRutinabyId(index);
       }
 
+      public getRutineByUserPaged(page: number, items: number) {
+		return this.dao.getRutineByUserPaged(page, items);
+	  }
     public async createRutina(enfoque: string, descripcion: string, imagePath: string){
         const newRutine = {
             enfoque, 

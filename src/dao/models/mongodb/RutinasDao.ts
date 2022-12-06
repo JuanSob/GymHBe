@@ -47,5 +47,32 @@ export class RutinasDao extends AbstractDao<Rutinas>{
         }
       }
 
+      public async getRutineByUserPaged(page:number=1, itemsPerPage: number=10){
+        try{
+          const total =  await super.getCollection().countDocuments({});
+          const totalPages = Math.ceil(total/itemsPerPage);
+          const items = await super.findByFilter(
+                    {},
+            { 
+              sort:{'type':-1},
+              skip:((page-1)*itemsPerPage),
+              limit:itemsPerPage
+            }
+          );
+          return {
+            total,
+            totalPages,
+            page,
+            itemsPerPage,
+            items
+          };
+        }
+        catch(ex)
+        {
+          console.log("RutineDao mongodb:", (ex as Error).message);
+          throw ex;
+        }
+      }
+
 
 }

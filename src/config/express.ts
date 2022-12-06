@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import rootRoute from '@routes/index';
 import errorHandler from './expressError';
@@ -15,7 +14,6 @@ const createServer = () => {
   app.use('/', rootRoute);
   app.use(expressNotFound);
   app.use(errorHandler);
-  app.use('/uploads', express.static(path.resolve('uploads')));
   return app;
 };
 

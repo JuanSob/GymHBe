@@ -4,16 +4,17 @@ import { Rutina } from "@server/libs/Rutinas";
 
 const rutinasEjercicio = new Rutina();
 
-router.get('/', async (_req, res)=>{
-    try {
-      res.json(await rutinasEjercicio.getRutina());
-    } catch (ex) {
-      console.error(ex);
-      res.status(503).json({error:ex});
-    }
-  });
+router.get('/', async (req, res) => {
+  try {
+    const { page, items } = { page: "1", items: "10", ...req.query };
+    res.json(await rutinasEjercicio.getRutineByUserPaged(Number(page), Number(items)));
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({ error: ex });
+  }
+});
 
-router.get('/byRutineIndex/:index', async (req, res) => {
+router.get('/byRutinaIndex/:index', async (req, res) => {
     try {
       const { index : id } = req.params;
       res.json(await rutinasEjercicio.getRutinabyId(id));

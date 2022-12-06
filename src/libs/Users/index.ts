@@ -49,8 +49,8 @@ export class Users {
         await this.dao.updateUserFailed(user._id.toString());
         throw new Error("LOGIN PASSWORD INVALID");
       }
-      const {name, email: emailUser, avatar, _id, roles} = user;
-      const returnUser = {name, email: emailUser, avatar, _id, roles};
+      const {name, email: emailUser, avatar, _id} = user;
+      const returnUser = {name, email: emailUser, avatar, _id};
       await this.dao.UpdateLoginSucces(user._id.toString());
       return {...returnUser, token: sign(returnUser)};
     } catch(err){
