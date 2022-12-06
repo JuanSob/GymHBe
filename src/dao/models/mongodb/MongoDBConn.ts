@@ -7,7 +7,7 @@ let connection:MongoClient = null;
 let mongoURI = process.env.Mongo_URI || 'mongodb://localhost:27017';
 
 //Decir a que bd nos vamos a conectar
-let mongoDBName = process.env.MONGO_DB_NAME || 'sw202203';
+let mongoDBName = process.env.MONGO_DB_NAME || 'sw202203pbd';
 
 export const getConnection = async ()=> {
     if (!connection)
