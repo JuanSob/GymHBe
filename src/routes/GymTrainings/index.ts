@@ -35,10 +35,10 @@ router.get('/byTrainingIndex/:index', async (req, res) => {
 
 router.post('/createTraining', (req, res) => {
     try{
-        const {name, description,clases} = req.body;
-        const imagePath = req.file.path;
+        const {name, description,clases,imagePath} = req.body;
+        //const imagePath = req.file.path;
         res.status(200).json({'msg':'El entrenamiento se ha ingresado de manera correcta'});
-        console.log(req.file.path);
+        //console.log(req.file.path);
         const result = gymTrainings.createGymTrainings(name, description,imagePath,clases);
         console.log('GYMTRAININGS', result);
     }catch(ex)
