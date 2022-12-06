@@ -22,8 +22,8 @@ export class MachineExercises {
     }
     */
 
-    public getMachineExercisesById( index:string) {
-        return this.dao.getMachineExercisesById(index);
+    public getMachineExercisesById( identifier:string) {
+        return this.dao.getMachineExercisesById(identifier);
       }
 
     public getGymMachineByUserPaged(page: number, items: number) {
