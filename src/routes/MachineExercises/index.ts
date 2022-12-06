@@ -4,7 +4,7 @@ import { MachineExercises, MachineExer} from "@server/libs/MachineExercises";
 
 const machineExercises = new MachineExercises();
 
-router.get('/', async (_req, res)=>{
+/*router.get('/', async (_req, res)=>{
     try {
       res.json(await machineExercises.getMachineExercises());
     } catch (ex) {
@@ -12,6 +12,16 @@ router.get('/', async (_req, res)=>{
       res.status(503).json({error:ex});
     }
   });
+*/
+router.get('/', async (req, res) => {
+  try {
+    const { page, items } = { page: "1", items: "10", ...req.query };
+    res.json(await machineExercises.getGymMachineByUserPaged(Number(page), Number(items)));
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({ error: ex });
+  }
+});
 
 router.get('/byMachineIndex/:index', async (req, res) => {
     try {
@@ -25,16 +35,16 @@ router.get('/byMachineIndex/:index', async (req, res) => {
 
 router.post('/createMachine', (req, res) => {
   try{
-      const {name, description} = req.body;
-      const imagePath = req.file.path;
+      const {name, description,imagePath} = req.body;
+      //const imagePath = req.file.path;
       res.status(200).json({'msg':'La maquina de ejercicio se ha ingresado de manera correcta'});
-      console.log(req.file.path);
+      //console.log(req.file);
       const result = machineExercises.createMachineExercises(name, description,imagePath);
-      console.log('GYMTRAININGS', result);
+      console.log('GYMMANICHE', result);
   }catch(ex)
   {
       res.status(500).json({error:"Error al ingresar el entrenamiento"});
-      console.log("GYMTRAININGS:", ex);
+      console.log("GYMMACHINE:", ex);
   }
 });
 

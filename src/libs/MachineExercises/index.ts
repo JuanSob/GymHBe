@@ -17,13 +17,18 @@ export class MachineExercises {
 			.catch(ex => console.error(ex));
 	}
 
-    public getMachineExercises() {
+    /*public getMachineExercises() {
         return this.dao.getMachineExercises()
+    }
+    */
+
+    public getMachineExercisesById( identifier:string) {
+        return this.dao.getMachineExercisesById(identifier);
       }
 
-    public getMachineExercisesById( index:string) {
-        return this.dao.getMachineExercisesById(index);
-      }
+    public getGymMachineByUserPaged(page: number, items: number) {
+		return this.dao.getGymMachineByUserPaged(page, items);
+	  }
 
     /*public async createMachineExercises(name: string, description: string, imagePath: string){
         const newMachine = {

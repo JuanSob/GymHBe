@@ -18,13 +18,18 @@ export class GymTrainings {
 			.catch(ex => console.error(ex));
 	}
 
-    public getGymTrainings() {
+    /*public getGymTrainings() {
         return this.dao.getGymTrainings()
       }
-
+    */
+   
     public getGymTrainingsById( index:string) {
         return this.dao.getGymTrainingsById(index);
       }
+
+    public getGymTrainingByUserPaged(page: number, items: number) {
+		return this.dao.getGymTrainingByUserPaged(page, items);
+	  }
 
    /* public async createGymTrainings(name: string, description: string, imagePath: string, clases: [] ){
         const newTraining = {

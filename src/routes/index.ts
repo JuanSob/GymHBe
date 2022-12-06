@@ -10,8 +10,8 @@ import apiKeyMW from '@server/middleware/apiKeyHeaderValidator';
 import { jwtValidator } from '@server/middleware/jwtBeaereValidator';
 import "@server/middleware/passportGithub";
 import RutinaEjercicio from './Rutina';
-import multer from '../libs/multer';
-
+//import multer from '../libs/multer';
+//multer.single('image')
 const router = Router();
 
 //Esto ayuda a que se pueda llegar a visualizar de la manera
@@ -19,8 +19,8 @@ const router = Router();
 router.use('/rutina', apiKeyMW , RutinaEjercicio);
 router.use('/plan', apiKeyMW , jwtValidator, GymPlansRouter);
 router.use('/planPayment', apiKeyMW , jwtValidator, GymPlanPayment);
-router.use('/machine', apiKeyMW , jwtValidator, multer.single('image') , MachineExercisesRouter);
-router.use('/training', apiKeyMW , jwtValidator, multer.single('image') , GymTrainingsRouter);
+router.use('/machine', apiKeyMW , jwtValidator,MachineExercisesRouter);
+router.use('/training', apiKeyMW , jwtValidator,GymTrainingsRouter);
 router.use('/security', apiKeyMW, UsersRouter);
 router.use('/authGit',apiKeyMW , jwtValidator, passportGithubRouter);
 router.use('/booking',apiKeyMW , jwtValidator, BookingRouter);
