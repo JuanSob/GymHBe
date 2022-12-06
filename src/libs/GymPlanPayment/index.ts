@@ -34,7 +34,7 @@ export class GymPlanPayment {
 				{
 					date: new Date(),
 					monthAmount: Number(monthAmount),
-					endSubscription: new Date(today.setMonth(today.getMonth() + monthAmount)),
+					endSubscription: sumMonthDate,
 					pricePerMonth: Number(pricePerMonth),
 					planDescription,
 					isv,
